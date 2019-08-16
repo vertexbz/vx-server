@@ -6,7 +6,17 @@ import { SyncHook } from 'tapable';
 import { predicate } from 'vx-std';
 import { listenPromise, closePromise, buildServerMethods } from './utils';
 import * as plugin from './plugin';
-import { ServerOptionsType, ServerTapsType, ServersType, RouteType, ArgumentTypes, InheritedFromExpress, ServerMethods, ServerInfo } from './type';
+import {
+    ServerOptionsType,
+    ServerTapsType,
+    ServersType,
+    RouteType,
+    ArgumentTypes,
+    InheritedFromExpress,
+    ServerMethods,
+    ServerInfo,
+    ServerPluginInterface
+} from './type';
 import { AddressInfo } from "net";
 
 type MethodsInterface = ServerMethods<InheritedFromExpress>;
@@ -220,9 +230,9 @@ export default class Server implements MethodsInterface {
         return this;
     }
 
-    plugin(...args: any) {
-        this.http && this.http.plugin.apply(null, args);
-        this.https && this.https.plugin.apply(null, args);
+    plugin(plugin: ServerPluginInterface) {
+        this.http && plugin.http !== false && this.http.plugin(plugin);
+        this.https && plugin.https !== false && this.https.plugin(plugin);
         return this;
     }
 }
