@@ -5,7 +5,7 @@ import { ServerPluginInterface, ServerTapsType } from '../type';
 
 export interface CorsOptions {
     credentials?: boolean;
-    origin?: string | RegExp | Array<string | RegExp> | ((origin: string) => boolean) | ((origin: string) => Promise<boolean>);
+    origin?: string | RegExp | Array<string | RegExp> | ((origin: string) => boolean | string) | ((origin: string) => Promise<boolean | string>);
     methods?: string | string[];
     allowedHeaders?: string | string[];
     exposedHeaders?: string | string[];
@@ -37,9 +37,18 @@ class CorsPlugin implements ServerPluginInterface {
             ...options,
             async origin(origin: string, callback) {
                 let error: Error | null = new Error('Not allowed by CORS');
+
+                let result: true | string = true;
+
                 if (!origin) {
                     error = null;
-                } else if (predicate.isFunction(options.origin) && await options.origin(origin)) {
+                } else if (predicate.isFunction(options.origin)) {
+                    const maybeNewOrigin = await options.origin(origin);
+                    if (predicate.isString(maybeNewOrigin)) {
+                        result = maybeNewOrigin;
+                    } else {
+                        result = (new URL(origin)).origin;
+                    }
                     error = null;
                 } else if (Array.isArray(options.origin) && options.origin.some((check: string | RegExp) => checkOrigin(origin, check))) {
                     error = null;
@@ -47,7 +56,8 @@ class CorsPlugin implements ServerPluginInterface {
                     error = null;
                 }
 
-                callback(error, error === null);
+                // @ts-ignore
+                callback(error, error === null ? result : null);
             }
         };
     }
