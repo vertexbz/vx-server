@@ -44,12 +44,14 @@ class CorsPlugin implements ServerPluginInterface {
                     error = null;
                 } else if (predicate.isFunction(options.origin)) {
                     const maybeNewOrigin = await options.origin(origin);
-                    if (predicate.isString(maybeNewOrigin)) {
-                        result = maybeNewOrigin;
-                    } else {
-                        result = (new URL(origin)).origin;
+                    if (maybeNewOrigin) {
+                        if (predicate.isString(maybeNewOrigin)) {
+                            result = maybeNewOrigin;
+                        } else {
+                            result = (new URL(origin)).origin;
+                        }
+                        error = null;
                     }
-                    error = null;
                 } else if (Array.isArray(options.origin) && options.origin.some((check: string | RegExp) => checkOrigin(origin, check))) {
                     error = null;
                 } else if (checkOrigin(origin, options.origin)) {
