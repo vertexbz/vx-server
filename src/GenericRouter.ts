@@ -1,4 +1,4 @@
-import CallableInstance from './callable-instance';
+import { CallableInstance } from 'vx-std';
 import { Router, IRoute, NextFunction, Request, Response } from 'express';
 
 export default
