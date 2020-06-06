@@ -68,8 +68,12 @@ export default class Server extends GenericRouter {
     }
 
     public plugin(plugin: ServerPluginInterface) {
-        this.http?.plugin(plugin);
-        this.https?.plugin(plugin);
+        if (plugin.http !== false) {
+            this.http?.plugin(plugin);
+        }
+        if (plugin.https !== false) {
+            this.https?.plugin(plugin);
+        }
         return this;
     }
 
@@ -112,8 +116,8 @@ export default class Server extends GenericRouter {
 
     protected _handle(method: keyof GenericRouter, args: any[]): void {
         // @ts-ignore
-        this.http?.[method](plugin);
+        this.http?.[method](...args);
         // @ts-ignore
-        this.https?.[method](plugin);
+        this.https?.[method](...args);
     }
 }

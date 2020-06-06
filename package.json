@@ -1,6 +1,6 @@
 {
   "name": "vx-experess-server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "description": "VX wrapper for express server + plugins",
   "main": "./dist/index.js",
