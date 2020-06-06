@@ -4242,10 +4242,10 @@ vscode-uri@^1.0.6:
   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-1.0.8.tgz#9769aaececae4026fb6e22359cb38946580ded59"
   integrity sha512-obtSWTlbJ+a+TFRYGaUumtVwb+InIUVI0Lu0VBUAPmj2cU5JutEXg3xUE0c2J5Tcy7h2DEKVJBFi+Y9ZSFzzPQ==
 
-vx-std@^0.2.14:
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/vx-std/-/vx-std-0.2.14.tgz#d4a779b5a736c9cc50eb805ab610eec51731868e"
-  integrity sha512-k/vFo1rgP6VA1hZ5zYnvG1K0Z66zN+B/ujOhbCCixFNf0A65XNU+5BPgvoHAdzpl6LYAGttcRPkWZj9J+LYJgA==
+vx-std@^0.2.18:
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/vx-std/-/vx-std-0.2.18.tgz#ef2a315b4a1707c0775a3311f0720b8a3159c8ff"
+  integrity sha512-4djREgpTxH/LDZEp8Qbs9zG5DJgz1FdAofrbXiBeXKhIWTxYar+hBBx6vpe87ACRM593ZlQ9XIyDinqEOjAzqw==
   dependencies:
     atob "^2.1.2"
     btoa "^1.2.1"
